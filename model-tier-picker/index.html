@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which AI model tier do I actually need?</title>
+<meta name="description" content="A free 5-question tool that recommends which AI model tier, cheap, balanced, or frontier, fits your task. No login, no tracking, not AI under the hood.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="header">
+      <p class="eyebrow">AI Cost Toolkit</p>
+      <h1>Which AI model tier do you actually need?</h1>
+      <p class="sub">5 quick questions. No login, no tracking. This is a small rules engine, not AI, see "How this works" below.</p>
+    </header>
+
+    <section id="quiz" class="card">
+      <div class="progress" aria-hidden="true">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div id="questions"></div>
+    </section>
+
+    <section id="result" class="card result hidden">
+      <p class="eyebrow" id="resultTier"></p>
+      <h2 id="resultHeadline"></h2>
+      <p id="resultWhy"></p>
+      <p class="example"><strong>Example task at this tier:</strong> <span id="resultExample"></span></p>
+      <p class="note" id="resultLatency"></p>
+      <p class="note" id="resultCompliance"></p>
+      <button id="restartBtn" class="btn-secondary" type="button">Start over</button>
+    </section>
+
+    <section class="card how">
+      <h3>How this works</h3>
+      <p>Every provider, OpenAI, Google, Anthropic, ships roughly the same three tiers: a small, fast, cheap model, a balanced mid-tier model, and a frontier model for the hardest reasoning problems. The price gap between the cheapest and most expensive tier is often 10x or more for the exact same task, so the real question is never "which model is best," it's "what tier does this specific task actually need."</p>
+      <p>This tool answers that with plain if/else rules based on your answers above, not a model call. No data leaves your browser. Nothing is stored or sent anywhere.</p>
+      <p class="credit">Part of the AI Cost Toolkit.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
