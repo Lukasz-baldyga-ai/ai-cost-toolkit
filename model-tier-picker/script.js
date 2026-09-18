@@ -50,20 +50,20 @@ const TIER_INFO = {
   cheap: {
     name: "Cheap & fast tier",
     headline: "The cheap, fast tier is enough for this.",
-    why: "This is understanding, writing, or classifying work, the kind every provider's smallest model handles well. Paying frontier prices here buys you nothing the cheap tier wasn't already going to get right.",
-    example: "Drafting a Slack message, summarizing a short document, quick classification.",
+    why: "This is simple, quick work, drafting a message or summarizing something short. A basic, low-cost model handles it just fine, so paying for a more powerful one would not give you a better answer, only a bigger bill for the same result.",
+    example: "Drafting a quick message, summarizing a short document, sorting things into categories.",
   },
   balanced: {
     name: "Balanced mid-tier",
     headline: "A balanced mid-tier model is the sweet spot here.",
-    why: "This needs more judgment than a one-line classification, but it isn't high-stakes multi-step reasoning either. The mid-tier is built for exactly this zone: customer-facing copy, real analysis, everyday coding.",
-    example: "Customer-facing copy, a first pass at real analysis, everyday coding tasks.",
+    why: "This needs a bit more judgment than a quick task, but it is not a complex, high-stakes problem either. A mid-range model is the right fit here, think of it like hiring a solid, experienced generalist instead of either an intern or an expensive specialist. It is built for exactly this kind of everyday work.",
+    example: "Writing something customers will actually read, a first pass at analyzing information, everyday coding work.",
   },
   frontier: {
     name: "Frontier tier",
     headline: "This is worth paying for the frontier tier.",
-    why: "Multi-step reasoning, messy strategy work, or anything where being wrong is expensive is where the frontier tier actually earns its price. Anywhere else, it's usually overkill.",
-    example: "Multi-step reasoning, messy strategy work, high-stakes analysis where errors are costly.",
+    why: "This involves working through several connected steps, or getting it wrong would actually cost you, in money, time, or trust. That is when it is worth paying for the most capable option available, like calling in a specialist instead of asking your family doctor. Anywhere else, it is more firepower than you need.",
+    example: "Complex, multi-step problems, messy strategic decisions, anything where a mistake would be expensive.",
   },
 };
 
@@ -138,12 +138,12 @@ function showResult() {
 
   const latencyEl = document.getElementById("resultLatency");
   latencyEl.textContent = state.answers.speed === "yes"
-    ? "Since this needs to be fast or live, also check the provider's latency and streaming numbers for this tier, not just the price."
+    ? "Since you said this needs to feel instant, like a live chat with a customer, also check how quickly this tier actually responds, not just what it costs. A cheaper model that replies slowly can feel worse than a pricier one that answers right away."
     : "";
 
   const complianceEl = document.getElementById("resultCompliance");
   complianceEl.textContent = state.answers.sensitive === "yes"
-    ? "You flagged sensitive or regulated data. Check the provider's data-handling and compliance terms for this tier before sending anything real through it. Tier choice alone doesn't solve that."
+    ? "You flagged sensitive or private information, things like health, financial, or legal details. Before using this for anything real, check how the AI provider stores and protects that data. Paying for a better tier does not automatically make that safe, that is a separate thing to check."
     : "";
 }
 
