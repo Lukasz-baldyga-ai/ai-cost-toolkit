@@ -131,6 +131,7 @@ h1 {
 .note:empty { display: none; }
 
 .btn-secondary {
+  display: inline-block;
   margin-top: 8px;
   background: transparent;
   color: var(--accent);
@@ -138,6 +139,7 @@ h1 {
   border-radius: 10px;
   padding: 10px 18px;
   font-size: 14px;
+  text-decoration: none;
   cursor: pointer;
 }
 

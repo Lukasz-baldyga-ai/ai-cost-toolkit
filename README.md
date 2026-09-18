@@ -1,5 +1,7 @@
 # AI Cost Toolkit
 
+**Live:** https://lukasz-baldyga-ai.github.io/ai-cost-toolkit/ (landing page + the web quiz; the Claude Skill is installed from this repo, see below)
+
 Two small, honest tools for the question nobody prices out before they start building: what is this actually going to cost to run?
 
 Both grew out of a 3-part LinkedIn series on AI build costs, covering a real $165,000-to-run-once agent example, a one-sentence scoping test, and three changes that cut a bill without cutting the build. Full source list and the numbers behind every rule: [`ai-build-cost-check/references/sources.md`](./ai-build-cost-check/references/sources.md).
