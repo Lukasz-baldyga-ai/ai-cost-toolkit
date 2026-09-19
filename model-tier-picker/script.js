@@ -82,6 +82,20 @@ const PROVIDER_URLS = {
   Google: "https://ai.google.dev/gemini-api/docs/pricing",
 };
 
+// Icons load from Simple Icons' public CDN (simpleicons.org), a widely-used
+// open set of single-color brand glyphs made for exactly this "works with X"
+// use case, not the providers' own trademarked logo files. Forced to a light
+// gray so all three stay legible on the dark card regardless of each brand's
+// own default color. If the CDN is blocked or unreachable, the onerror
+// handler removes the broken-image icon and the text label still works fine
+// on its own.
+const PROVIDER_ICON_SLUGS = { Anthropic: "anthropic", OpenAI: "openai", Google: "google" };
+
+function providerIcon(provider) {
+  const slug = PROVIDER_ICON_SLUGS[provider];
+  return '<img class="provider-icon" src="https://cdn.simpleicons.org/' + slug + '/e8eaed" alt="" width="16" height="16" loading="lazy" onerror="this.remove()">';
+}
+
 const TIER_MODELS = {
   cheap: [
     { provider: "Anthropic", model: "Claude Haiku 4.5" },
@@ -105,7 +119,7 @@ function renderModels(tier) {
     const url = PROVIDER_URLS[row.provider];
     const note = row.note ? " (" + row.note + ")" : "";
     return (
-      "<li><strong>" + row.provider + ":</strong> " + row.model + note +
+      "<li>" + providerIcon(row.provider) + "<strong>" + row.provider + ":</strong> " + row.model + note +
       ' <a href="' + url + '" target="_blank" rel="noopener">check current pricing</a></li>'
     );
   }).join("");

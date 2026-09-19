@@ -145,7 +145,19 @@ h1 {
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+}
+
+.models-list li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.provider-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .models-list a {
