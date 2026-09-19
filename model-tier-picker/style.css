@@ -253,6 +253,24 @@ h1 {
 
 .btn-secondary:hover { border-color: var(--accent); }
 
+#restartBtn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 14px 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+#restartBtn:hover {
+  background: #4a78d6;
+  border-color: #4a78d6;
+}
+
 .how h3 {
   margin: 0 0 12px;
   font-size: 16px;
