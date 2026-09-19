@@ -155,10 +155,27 @@ function computeTier(answers) {
   return tier;
 }
 
+function renderTimeline() {
+  const timelineEl = document.getElementById("stepTimeline");
+  timelineEl.innerHTML = QUESTIONS.map(function (q, i) {
+    let stepClass = "upcoming";
+    if (i < state.step) stepClass = "done";
+    else if (i === state.step) stepClass = "current";
+
+    const label = stepClass === "done" ? "✓" : String(i + 1);
+    let html = '<div class="step-node ' + stepClass + '">' + label + "</div>";
+
+    if (i < QUESTIONS.length - 1) {
+      const lineClass = i < state.step ? "step-line done" : "step-line";
+      html += '<div class="' + lineClass + '"></div>';
+    }
+    return html;
+  }).join("");
+}
+
 function render() {
   const questionsEl = document.getElementById("questions");
-  const progressBar = document.getElementById("progressBar");
-  progressBar.style.width = (state.step / QUESTIONS.length) * 100 + "%";
+  renderTimeline();
 
   if (state.step >= QUESTIONS.length) {
     showResult();
