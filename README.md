@@ -18,7 +18,7 @@ Say "run the AI cost check" (or "run the AI cost check for [idea]") once it's in
 
 A 5-question quiz that recommends which model tier (cheap and fast, balanced, or frontier) actually fits the job in front of you, with plain-English reasoning. No login, no backend, nothing tracked, nothing stored. Open `model-tier-picker/index.html` in a browser, or host the folder as a static site.
 
-Each result also names a real Anthropic model for that tier (Haiku 4.5, Sonnet 5, or Opus 5), checked against Anthropic's own developer docs. OpenAI and Google are shown as tiers only, not specific model names, on purpose. While building this, five separate live lookups across both providers came back with different answers about their own current flagship model in the same week, which is exactly the kind of number that looks authoritative and is quietly wrong a month later. A tier recommendation ages fine. A specific competitor model name, checked once and left on a public page, doesn't.
+Each result also names a specific best-fit model per provider (Anthropic, OpenAI, Google) for that tier, with a link to that provider's own pricing page so you can confirm it in one click rather than take the page's word for it. Anthropic's names come from Anthropic's own developer docs, high confidence. OpenAI's and Google's cheap and balanced picks converged across multiple independent live checks while building this; their top "frontier" pick was the one part that stayed genuinely unclear even across the providers' own pages (naming shifts fast up there), so that row says so plainly instead of hiding it. Checked live 2026-09-19, and it will drift, that's exactly why every row links out to the source instead of asking you to trust a static page.
 
 ## Why two tools, not one
 

@@ -67,44 +67,53 @@ const TIER_INFO = {
   },
 };
 
-// Checked live on the date below. Anthropic names come from Anthropic's own
-// developer docs, high confidence. OpenAI and Google are deliberately left
-// unnamed, five separate live lookups on both came back with different
-// answers about their own current flagship model in the same week, so a
-// specific name here would likely be wrong within weeks. See the toolkit
-// repo's README for the full explanation.
+// Checked live on the date below (2 search queries + 3 direct provider-page
+// fetches). Anthropic names come from Anthropic's own developer docs, high
+// confidence. OpenAI's and Google's cheap and balanced tiers converged
+// across multiple independent live checks. The one part that stayed
+// genuinely unclear, even across the providers' own pages, was which model
+// each one currently calls its top "frontier" pick, flagged inline below
+// rather than hidden. See the toolkit repo's README for the full story.
 const MODEL_CHECK_DATE = "2026-09-19";
+
+const PROVIDER_URLS = {
+  Anthropic: "https://www.anthropic.com/pricing",
+  OpenAI: "https://openai.com/api/pricing/",
+  Google: "https://ai.google.dev/gemini-api/docs/pricing",
+};
 
 const TIER_MODELS = {
   cheap: [
     { provider: "Anthropic", model: "Claude Haiku 4.5" },
-    { provider: "OpenAI", model: null },
-    { provider: "Google", model: null },
+    { provider: "OpenAI", model: "GPT-5.6 Luna" },
+    { provider: "Google", model: "Gemini 3.5 Flash-Lite" },
   ],
   balanced: [
     { provider: "Anthropic", model: "Claude Sonnet 5" },
-    { provider: "OpenAI", model: null },
-    { provider: "Google", model: null },
+    { provider: "OpenAI", model: "GPT-5.6 Terra" },
+    { provider: "Google", model: "Gemini 3.8 Flash" },
   ],
   frontier: [
-    { provider: "Anthropic", model: "Claude Opus 5 (Claude Fable 5.1 one step up, for the most demanding work)" },
-    { provider: "OpenAI", model: null },
-    { provider: "Google", model: null },
+    { provider: "Anthropic", model: "Claude Opus 5", note: "Claude Fable 5.1 is one step up, for the most demanding work" },
+    { provider: "OpenAI", model: "GPT-5.6 Sol", note: "or GPT-6 Astra, OpenAI's newest flagship, naming was the least stable part of this check" },
+    { provider: "Google", model: "Gemini Pro", note: "their most capable line, the exact current version was unclear even across Google's own pages" },
   ],
 };
 
-const UNVERIFIED_NOTE = "changes too fast to name reliably here, check the provider's own pricing page";
-
 function renderModels(tier) {
   const rows = TIER_MODELS[tier].map(function (row) {
-    const value = row.model ? row.model : '<span class="unverified">' + UNVERIFIED_NOTE + "</span>";
-    return "<li><strong>" + row.provider + ":</strong> " + value + "</li>";
+    const url = PROVIDER_URLS[row.provider];
+    const note = row.note ? " (" + row.note + ")" : "";
+    return (
+      "<li><strong>" + row.provider + ":</strong> " + row.model + note +
+      ' <a href="' + url + '" target="_blank" rel="noopener">check current pricing</a></li>'
+    );
   }).join("");
 
   return (
-    '<p class="models-label">Real models at this tier, checked ' + MODEL_CHECK_DATE + "</p>" +
+    '<p class="models-label">Best-fit model at this tier, checked ' + MODEL_CHECK_DATE + "</p>" +
     '<ul class="models-list">' + rows + "</ul>" +
-    '<p class="models-caveat">The Anthropic name above is checked against Anthropic\'s own developer docs. OpenAI and Google are left unnamed on purpose: live checks on both came back with different answers about their own current flagship model, so naming one here would likely be wrong within weeks.</p>'
+    '<p class="models-caveat">Provider lineups shift every few months, sometimes faster. Click through to confirm before you commit to one, especially for the frontier tier, where naming was the least stable part of this check.</p>'
   );
 }
 

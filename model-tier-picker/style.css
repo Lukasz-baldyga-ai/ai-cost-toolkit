@@ -148,9 +148,11 @@ h1 {
   gap: 6px;
 }
 
-.unverified {
-  color: var(--text-muted);
-  font-style: italic;
+.models-list a {
+  color: var(--accent);
+  font-size: 12px;
+  margin-left: 6px;
+  white-space: nowrap;
 }
 
 .models-caveat {
