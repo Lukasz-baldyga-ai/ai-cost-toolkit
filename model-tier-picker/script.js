@@ -82,19 +82,11 @@ const PROVIDER_URLS = {
   Google: "https://ai.google.dev/gemini-api/docs/pricing",
 };
 
-// Icons load from Simple Icons' public CDN (simpleicons.org), a widely-used
-// open set of single-color brand glyphs made for exactly this "works with X"
-// use case, not the providers' own trademarked logo files. Forced to a light
-// gray so all three stay legible on the dark card regardless of each brand's
-// own default color. If the CDN is blocked or unreachable, the onerror
-// handler removes the broken-image icon and the text label still works fine
-// on its own.
-const PROVIDER_ICON_SLUGS = { Anthropic: "anthropic", OpenAI: "openai", Google: "google" };
-
-function providerIcon(provider) {
-  const slug = PROVIDER_ICON_SLUGS[provider];
-  return '<img class="provider-icon" src="https://cdn.simpleicons.org/' + slug + '/e8eaed" alt="" width="16" height="16" loading="lazy" onerror="this.remove()">';
-}
+// No external logo images, tried that, looked bad and added a network
+// dependency for something purely decorative. Each provider instead gets a
+// small CSS-only accent color (a muted nod to their brand color, not their
+// actual logo) as a top border on its card.
+const PROVIDER_ACCENTS = { Anthropic: "#c9704f", OpenAI: "#10a37f", Google: "#4285f4" };
 
 const TIER_MODELS = {
   cheap: [
@@ -115,18 +107,23 @@ const TIER_MODELS = {
 };
 
 function renderModels(tier) {
-  const rows = TIER_MODELS[tier].map(function (row) {
+  const cards = TIER_MODELS[tier].map(function (row) {
     const url = PROVIDER_URLS[row.provider];
-    const note = row.note ? " (" + row.note + ")" : "";
+    const accent = PROVIDER_ACCENTS[row.provider];
+    const note = row.note ? '<p class="provider-note">' + row.note + "</p>" : "";
     return (
-      "<li>" + providerIcon(row.provider) + "<strong>" + row.provider + ":</strong> " + row.model + note +
-      ' <a href="' + url + '" target="_blank" rel="noopener">check current pricing</a></li>'
+      '<div class="provider-card" style="border-top-color: ' + accent + '">' +
+      '<p class="provider-name">' + row.provider + "</p>" +
+      '<p class="provider-model">' + row.model + "</p>" +
+      note +
+      '<a class="provider-link" href="' + url + '" target="_blank" rel="noopener">Check current pricing</a>' +
+      "</div>"
     );
   }).join("");
 
   return (
     '<p class="models-label">Best-fit model at this tier, checked ' + MODEL_CHECK_DATE + "</p>" +
-    '<ul class="models-list">' + rows + "</ul>" +
+    '<div class="models-grid">' + cards + "</div>" +
     '<p class="models-caveat">Provider lineups shift every few months, sometimes faster. Click through to confirm before you commit to one, especially for the frontier tier, where naming was the least stable part of this check.</p>'
   );
 }
