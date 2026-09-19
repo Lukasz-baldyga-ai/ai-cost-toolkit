@@ -67,6 +67,47 @@ const TIER_INFO = {
   },
 };
 
+// Checked live on the date below. Anthropic names come from Anthropic's own
+// developer docs, high confidence. OpenAI and Google are deliberately left
+// unnamed, five separate live lookups on both came back with different
+// answers about their own current flagship model in the same week, so a
+// specific name here would likely be wrong within weeks. See the toolkit
+// repo's README for the full explanation.
+const MODEL_CHECK_DATE = "2026-09-19";
+
+const TIER_MODELS = {
+  cheap: [
+    { provider: "Anthropic", model: "Claude Haiku 4.5" },
+    { provider: "OpenAI", model: null },
+    { provider: "Google", model: null },
+  ],
+  balanced: [
+    { provider: "Anthropic", model: "Claude Sonnet 5" },
+    { provider: "OpenAI", model: null },
+    { provider: "Google", model: null },
+  ],
+  frontier: [
+    { provider: "Anthropic", model: "Claude Opus 5 (Claude Fable 5.1 one step up, for the most demanding work)" },
+    { provider: "OpenAI", model: null },
+    { provider: "Google", model: null },
+  ],
+};
+
+const UNVERIFIED_NOTE = "changes too fast to name reliably here, check the provider's own pricing page";
+
+function renderModels(tier) {
+  const rows = TIER_MODELS[tier].map(function (row) {
+    const value = row.model ? row.model : '<span class="unverified">' + UNVERIFIED_NOTE + "</span>";
+    return "<li><strong>" + row.provider + ":</strong> " + value + "</li>";
+  }).join("");
+
+  return (
+    '<p class="models-label">Real models at this tier, checked ' + MODEL_CHECK_DATE + "</p>" +
+    '<ul class="models-list">' + rows + "</ul>" +
+    '<p class="models-caveat">The Anthropic name above is checked against Anthropic\'s own developer docs. OpenAI and Google are left unnamed on purpose: live checks on both came back with different answers about their own current flagship model, so naming one here would likely be wrong within weeks.</p>'
+  );
+}
+
 const TIER_ORDER = ["cheap", "balanced", "frontier"];
 
 const state = { step: 0, answers: {} };
@@ -135,6 +176,7 @@ function showResult() {
   document.getElementById("resultHeadline").textContent = info.headline;
   document.getElementById("resultWhy").textContent = info.why;
   document.getElementById("resultExample").textContent = info.example;
+  document.getElementById("resultModels").innerHTML = renderModels(tier);
 
   const latencyEl = document.getElementById("resultLatency");
   latencyEl.textContent = state.answers.speed === "yes"
