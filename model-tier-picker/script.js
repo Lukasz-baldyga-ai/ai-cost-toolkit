@@ -67,14 +67,13 @@ const TIER_INFO = {
   },
 };
 
-// Checked live on the date below (2 search queries + 3 direct provider-page
-// fetches). Anthropic names come from Anthropic's own developer docs, high
-// confidence. OpenAI's and Google's cheap and balanced tiers converged
-// across multiple independent live checks. The one part that stayed
-// genuinely unclear, even across the providers' own pages, was which model
-// each one currently calls its top "frontier" pick, flagged inline below
-// rather than hidden. See the toolkit repo's README for the full story.
-const MODEL_CHECK_DATE = "2026-09-19";
+// Re-checked on the date below directly against each provider's own model
+// page: Anthropic (platform.claude.com/docs/en/models/overview), OpenAI
+// (developers.openai.com/api/docs/models) and Google
+// (ai.google.dev/gemini-api/docs/models). All three agree on a clear
+// cheap / balanced / flagship split, so the earlier "naming is unclear"
+// caveat on the frontier row is gone. See the toolkit repo's README.
+const MODEL_CHECK_DATE = "2026-10-20";
 
 const PROVIDER_URLS = {
   Anthropic: "https://www.anthropic.com/pricing",
@@ -90,19 +89,19 @@ const PROVIDER_ACCENTS = { Anthropic: "#c9704f", OpenAI: "#10a37f", Google: "#42
 
 const TIER_MODELS = {
   cheap: [
-    { provider: "Anthropic", model: "Claude Haiku 4.5" },
-    { provider: "OpenAI", model: "GPT-5.6 Luna" },
+    { provider: "Anthropic", model: "Claude Haiku 5.5" },
+    { provider: "OpenAI", model: "GPT-6 Luna" },
     { provider: "Google", model: "Gemini 3.5 Flash-Lite" },
   ],
   balanced: [
-    { provider: "Anthropic", model: "Claude Sonnet 5" },
-    { provider: "OpenAI", model: "GPT-5.6 Terra" },
+    { provider: "Anthropic", model: "Claude Sonnet 5.5" },
+    { provider: "OpenAI", model: "GPT-6.1 Sol" },
     { provider: "Google", model: "Gemini 3.8 Flash" },
   ],
   frontier: [
-    { provider: "Anthropic", model: "Claude Opus 5", note: "Claude Fable 5.1 is one step up, for the most demanding work" },
-    { provider: "OpenAI", model: "GPT-5.6 Sol", note: "or GPT-6 Astra, OpenAI's newest flagship, naming was the least stable part of this check" },
-    { provider: "Google", model: "Gemini Pro", note: "their most capable line, the exact current version was unclear even across Google's own pages" },
+    { provider: "Anthropic", model: "Claude Opus 5.5", note: "Claude Fable 5.1 is one step up, for the most demanding work" },
+    { provider: "OpenAI", model: "GPT-6 Astra", note: "OpenAI's most capable model" },
+    { provider: "Google", model: "Gemini 4 Argon", note: "Google's flagship reasoning model" },
   ],
 };
 
@@ -124,7 +123,7 @@ function renderModels(tier) {
   return (
     '<p class="models-label">Best-fit model at this tier, checked ' + MODEL_CHECK_DATE + "</p>" +
     '<div class="models-grid">' + cards + "</div>" +
-    '<p class="models-caveat">Provider lineups shift every few months, sometimes faster. Click through to confirm before you commit to one, especially for the frontier tier, where naming was the least stable part of this check.</p>'
+    '<p class="models-caveat">Provider lineups shift every few months, sometimes faster. Click through to confirm before you commit to one.</p>'
   );
 }
 
